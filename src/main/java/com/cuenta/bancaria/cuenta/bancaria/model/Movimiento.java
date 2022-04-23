@@ -1,12 +1,21 @@
 package com.cuenta.bancaria.cuenta.bancaria.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import lombok.Data;
-
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import lombok.Data;
 
 /**
  * The persistent class for the movimiento database table.
@@ -14,31 +23,32 @@ import java.util.Date;
  */
 @Data
 @Entity
-@NamedQuery(name="Movimiento.findAll", query="SELECT m FROM Movimiento m")
+@NamedQuery(name = "Movimiento.findAll", query = "SELECT m FROM Movimiento m")
 public class Movimiento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-
-	@Lob
-	private String descripcion;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int idMovimiento;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecha;
 
 	private double saldo;
 
-	//bi-directional many-to-one association to Cliente
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idCliente")
+	@Column(name = "tipo_movimiento")
+	private String tipoMovimiento;
+
+	private double valor;
+
+	// bi-directional many-to-one association to Cliente
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idCliente")
 	private Cliente cliente;
 
-	//bi-directional many-to-one association to Cuenta
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idCuenta")
+	// bi-directional many-to-one association to Cuenta
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idCuenta")
 	private Cuenta cuenta;
-
 
 }

@@ -4,6 +4,7 @@
 package com.cuenta.bancaria.cuenta.bancaria.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import com.cuenta.bancaria.cuenta.bancaria.service.ClienteService;
  */
 @Service
 public class ClienteServiceImpl implements ClienteService {
-	
+
 	@Autowired
 	private ClienteRepository clienteRepository;
 
@@ -34,7 +35,6 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public Cliente update(Cliente cliente) {
-		// TODO Auto-generated method stub
 		return clienteRepository.save(cliente);
 	}
 
@@ -42,6 +42,21 @@ public class ClienteServiceImpl implements ClienteService {
 	public void delete(Long id) {
 		clienteRepository.deleteById(id);
 
+	}
+
+	@Override
+	public Optional<Cliente> obtenerPorEstadoIdCliente(String estado, Long id) {
+		return clienteRepository.findByEstadoAndIdCliente(estado, id);
+	}
+
+	@Override
+	public Optional<Cliente> obtenerPorId(Long id) {
+		return clienteRepository.findById(id);
+	}
+
+	@Override
+	public Optional<Cliente> obtenerPorIdCliente(Long id) {
+		return clienteRepository.findByIdCliente(id);
 	}
 
 }

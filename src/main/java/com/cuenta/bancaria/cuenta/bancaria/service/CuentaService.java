@@ -4,6 +4,7 @@
 package com.cuenta.bancaria.cuenta.bancaria.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.cuenta.bancaria.cuenta.bancaria.model.Cuenta;
 
@@ -19,5 +20,10 @@ public interface CuentaService {
 	Cuenta update(Cuenta cuenta);
 
 	void delete(Long id);
+	
+	Optional<Cuenta> obtenerPorId(Long id);
+	
+	Optional<Cuenta> obtenerPorCliente(Long id);
+	
 
 }

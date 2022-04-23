@@ -4,6 +4,7 @@
 package com.cuenta.bancaria.cuenta.bancaria.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,6 @@ public class CuentaServiceImpl implements CuentaService {
 
 	@Override
 	public Cuenta update(Cuenta cuenta) {
-		// TODO Auto-generated method stub
 		return cuentaRepository.save(cuenta);
 	}
 
@@ -42,6 +42,16 @@ public class CuentaServiceImpl implements CuentaService {
 	public void delete(Long id) {
 		cuentaRepository.deleteById(id);
 
+	}
+
+	@Override
+	public Optional<Cuenta> obtenerPorId(Long id) {
+		return cuentaRepository.findById(id);
+	}
+
+	@Override
+	public Optional<Cuenta> obtenerPorCliente(Long id) {
+		return cuentaRepository.findByIdCliente(id);
 	}
 
 }
