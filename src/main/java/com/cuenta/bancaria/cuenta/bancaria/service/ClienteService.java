@@ -27,6 +27,8 @@ public interface ClienteService {
 
 	Optional<Cliente> obtenerPorIdCliente(Long id);
 
-	List<Cliente> obtenerPorIdPersona(Long id);
+//	List<Cliente> obtenerPorIdPersona(Long id);
+
+	Optional<Cliente> obtenerPorIdentificacion(String identificacion);
 
 }

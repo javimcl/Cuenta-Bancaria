@@ -3,7 +3,6 @@
  */
 package com.cuenta.bancaria.cuenta.bancaria.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -24,9 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cuenta.bancaria.cuenta.bancaria.controller.dto.ClienteEntradaDto;
 import com.cuenta.bancaria.cuenta.bancaria.model.Cliente;
-import com.cuenta.bancaria.cuenta.bancaria.model.Persona;
 import com.cuenta.bancaria.cuenta.bancaria.service.ClienteService;
-import com.cuenta.bancaria.cuenta.bancaria.service.PersonaService;
 
 /**
  * @author JAVIM
@@ -40,35 +37,32 @@ public class ClienteController {
 	@Autowired
 	private ClienteService service;
 
-	@Autowired
-	private PersonaService personaService;
+//	@Autowired
+//	private PersonaService personaService;
 
 	@PostMapping
 	public ResponseEntity<?> create(@Validated @RequestBody ClienteEntradaDto clienteEntradaDto) {
 		try {
-			if (!ObjectUtils.isEmpty(clienteEntradaDto.getIdentificacion())) {
-				Optional<Persona> personaEncontrada = personaService
-						.obtenerPorIdentificacion(clienteEntradaDto.getIdentificacion());
-				if (personaEncontrada.isPresent()) {
-					clienteEntradaDto.setIdPersona(personaEncontrada.get().getIdPersona());
-				} else {
-					return new ResponseEntity<>("No existe la persona con esta identificación", HttpStatus.BAD_REQUEST);
-				}
-			}
 
-			Optional<Cliente> clienteEncontrado = service.obtenerPorEstadoIdCliente(Boolean.TRUE.toString(),
-					clienteEntradaDto.getIdPersona());
-			if (clienteEncontrado.isEmpty()) {
+			Optional<Cliente> clienteEncontrado = service
+					.obtenerPorIdentificacion(clienteEntradaDto.getIdentificacion());
+			if (clienteEncontrado.isPresent()) {
+				return new ResponseEntity<>(
+						"Cliente ya se encuentra registrado es estado: " + clienteEncontrado.get().getEstado(),
+						HttpStatus.BAD_REQUEST);
+			} else {
 				Cliente cliente = new Cliente();
+				cliente.setNombre(clienteEntradaDto.getNombre());
+				cliente.setGenero(clienteEntradaDto.getGenero());
+				cliente.setEdad(clienteEntradaDto.getEdad());
+				cliente.setIdentificacion(clienteEntradaDto.getIdentificacion());
+				cliente.setDireccion(clienteEntradaDto.getDireccion());
+				cliente.setTelefono(clienteEntradaDto.getTelefono());
 				cliente.setContrasena(clienteEntradaDto.getContrasenia());
 				cliente.setEstado(Boolean.TRUE.toString());
-				cliente.setIdPersona(clienteEntradaDto.getIdPersona());
 				Cliente clienteGuardado = service.create(cliente);
 				return new ResponseEntity<Cliente>(clienteGuardado, HttpStatus.CREATED);
-			} else {
-				return new ResponseEntity<>("Cliente ya se encuentra registrado", HttpStatus.CREATED);
 			}
-
 		} catch (Exception e) {
 			log.error("Por favor comuniquese con el administrador", e);
 			return new ResponseEntity<>("Por favor comuniquese con el administrador", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -76,43 +70,44 @@ public class ClienteController {
 	}
 
 	@GetMapping
-	public ResponseEntity<?> obtenerClientePorPersona(@Validated @RequestBody ClienteEntradaDto clienteEntradaDto) {
-		if (!ObjectUtils.isEmpty(clienteEntradaDto.getIdentificacion())) {
-			Optional<Persona> personaEncontrada = personaService
+	public ResponseEntity<?> obtenerCliente(@Validated @RequestBody ClienteEntradaDto clienteEntradaDto) {
+		try {
+			Optional<Cliente> clienteEncontrado = service
 					.obtenerPorIdentificacion(clienteEntradaDto.getIdentificacion());
-			if (personaEncontrada.isPresent()) {
-				clienteEntradaDto.setIdPersona(personaEncontrada.get().getIdPersona());
+			if (clienteEncontrado.isPresent()) {
+				return new ResponseEntity<Cliente>(clienteEncontrado.get(), HttpStatus.OK);
 			} else {
-				return new ResponseEntity<>("No existe la persona con esta identificación", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<>("No existe clientes con el parametro", HttpStatus.BAD_REQUEST);
 			}
+		} catch (Exception e) {
+			log.error("Por favor comuniquese con el administrador", e);
+			return new ResponseEntity<>("Por favor comuniquese con el administrador", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-		List<Cliente> listaCliente = service.obtenerPorIdPersona(Long.valueOf(clienteEntradaDto.getIdPersona()));
-		if (null == listaCliente || listaCliente.isEmpty()) {
-			return new ResponseEntity<>("No existe clientes con el parametro", HttpStatus.BAD_REQUEST);
-		} else {
-			return new ResponseEntity<List<Cliente>>(listaCliente, HttpStatus.OK);
-		}
-
 	}
 
 	@PutMapping
 	public ResponseEntity<?> update(@Validated @RequestBody ClienteEntradaDto clienteEntradaDto) {
 		try {
-
-			Optional<Persona> personaEncontrada = personaService
-					.obtenerPorIdentificacion(clienteEntradaDto.getIdentificacion());
-			if (!personaEncontrada.isPresent()) {
-				return new ResponseEntity<>("No existe el cliente con esta identificación", HttpStatus.BAD_REQUEST);
+			Optional<Cliente> clienteEncontrado = null;
+			if (!ObjectUtils.isEmpty(clienteEntradaDto.getIdentificacion())) {
+				clienteEncontrado = service.obtenerPorIdentificacion(clienteEntradaDto.getIdentificacion());
+			} else {
+				clienteEncontrado = service.obtenerPorId(clienteEntradaDto.getIdCliente());
 			}
-			Optional<Cliente> clienteEncontrado = service.obtenerPorEstadoIdCliente(Boolean.TRUE.toString(),
-					personaEncontrada.get().getIdPersona());
-			if (clienteEncontrado.isPresent()) {
-				Cliente cliente = clienteEncontrado.get();
+
+			if (null != clienteEncontrado && clienteEncontrado.isPresent()) {
+				Cliente cliente = new Cliente();
+				cliente.setNombre(clienteEntradaDto.getNombre());
+				cliente.setGenero(clienteEntradaDto.getGenero());
+				cliente.setEdad(clienteEntradaDto.getEdad());
+				cliente.setIdentificacion(clienteEntradaDto.getIdentificacion());
+				cliente.setDireccion(clienteEntradaDto.getDireccion());
+				cliente.setTelefono(clienteEntradaDto.getTelefono());
 				cliente.setContrasena(clienteEntradaDto.getContrasenia());
 				cliente.setEstado(Boolean.TRUE.toString());
 				Cliente clienteGuardado = service.update(cliente);
 				return new ResponseEntity<Cliente>(clienteGuardado, HttpStatus.OK);
+
 			} else {
 				return new ResponseEntity<>("Cliente no se encuentra registrado", HttpStatus.CREATED);
 			}

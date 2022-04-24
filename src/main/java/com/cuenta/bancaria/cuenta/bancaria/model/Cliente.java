@@ -5,12 +5,9 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
@@ -22,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")
-public class Cliente implements Serializable {
+public class Cliente extends Persona implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -41,16 +38,6 @@ public class Cliente implements Serializable {
 	@OneToMany(mappedBy = "cliente")
 	@JsonIgnore
 	private List<Movimiento> movimientos;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_persona", insertable = false, updatable = false)
-	@JsonIgnore
-	private Persona persona;
-	
-	@Column(name = "id_persona")
-	private Long idPersona;
-
-
 
 	public Long getClienteId() {
 		return clienteId;
@@ -90,22 +77,6 @@ public class Cliente implements Serializable {
 
 	public void setMovimientos(List<Movimiento> movimientos) {
 		this.movimientos = movimientos;
-	}
-
-	public Persona getPersona() {
-		return persona;
-	}
-
-	public void setPersona(Persona persona) {
-		this.persona = persona;
-	}
-
-	public Long getIdPersona() {
-		return idPersona;
-	}
-
-	public void setIdPersona(Long idPersona) {
-		this.idPersona = idPersona;
 	}
 
 }

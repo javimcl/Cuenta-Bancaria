@@ -13,7 +13,8 @@ import com.cuenta.bancaria.cuenta.bancaria.model.Persona;
  * @author JAVIM
  *
  */
-public interface PersonaRepository extends JpaRepository<Persona, Long> {
+public interface PersonaRepository {
+//extends JpaRepository<Persona, Long> {
 
-	Optional<Persona> findByIdentificacion(String id);
+//	Optional<Persona> findByIdentificacion(String id);
 }

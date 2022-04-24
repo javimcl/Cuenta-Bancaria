@@ -59,9 +59,14 @@ public class ClienteServiceImpl implements ClienteService {
 		return clienteRepository.findByClienteId(id);
 	}
 
+//	@Override
+//	public List<Cliente> obtenerPorIdPersona(Long id) {
+//		return clienteRepository.findByIdPersona(id);
+//	}
+
 	@Override
-	public List<Cliente> obtenerPorIdPersona(Long id) {
-		return clienteRepository.findByIdPersona(id);
+	public Optional<Cliente> obtenerPorIdentificacion(String identificacion) {
+		return clienteRepository.findByIdentificacion(identificacion);
 	}
 
 }

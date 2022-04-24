@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +26,8 @@ import com.cuenta.bancaria.cuenta.bancaria.controller.dto.CuentaEntradaDto;
 import com.cuenta.bancaria.cuenta.bancaria.enumeration.EstadoEmun;
 import com.cuenta.bancaria.cuenta.bancaria.model.Cliente;
 import com.cuenta.bancaria.cuenta.bancaria.model.Cuenta;
-import com.cuenta.bancaria.cuenta.bancaria.model.Persona;
 import com.cuenta.bancaria.cuenta.bancaria.service.ClienteService;
 import com.cuenta.bancaria.cuenta.bancaria.service.CuentaService;
-import com.cuenta.bancaria.cuenta.bancaria.service.PersonaService;
 
 /**
  * @author JAVIM
@@ -45,8 +42,8 @@ public class CuentaController {
 	@Autowired
 	private CuentaService service;
 
-	@Autowired
-	private PersonaService personaService;
+//	@Autowired
+//	private PersonaService personaService;
 
 	@Autowired
 	private ClienteService clienteService;
@@ -54,15 +51,15 @@ public class CuentaController {
 	@PostMapping
 	public ResponseEntity<?> create(@Validated @RequestBody CuentaEntradaDto cuentaEntradaDto) {
 		try {
-			if (!ObjectUtils.isEmpty(cuentaEntradaDto.getIdentificacion())) {
-				Optional<Persona> personaEncontrada = personaService
-						.obtenerPorIdentificacion(cuentaEntradaDto.getIdentificacion());
-				if (personaEncontrada.isPresent()) {
-					cuentaEntradaDto.setIdPersona(personaEncontrada.get().getIdPersona());
-				} else {
-					return new ResponseEntity<>("No existe la persona con esta identificación", HttpStatus.BAD_REQUEST);
-				}
-			}
+//			if (!ObjectUtils.isEmpty(cuentaEntradaDto.getIdentificacion())) {
+//				Optional<Persona> personaEncontrada = personaService
+//						.obtenerPorIdentificacion(cuentaEntradaDto.getIdentificacion());
+//				if (personaEncontrada.isPresent()) {
+//					cuentaEntradaDto.setIdPersona(personaEncontrada.get().getIdPersona());
+//				} else {
+//					return new ResponseEntity<>("No existe la persona con esta identificación", HttpStatus.BAD_REQUEST);
+//				}
+//			}
 
 			Optional<Cliente> cliente = clienteService.obtenerPorIdCliente(cuentaEntradaDto.getIdPersona());
 			if (cliente.isPresent()) {

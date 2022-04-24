@@ -13,16 +13,16 @@ import com.cuenta.bancaria.cuenta.bancaria.model.Persona;
  *
  */
 public interface PersonaService {
-	Persona create(Persona persona);
-
-	List<Persona> read();
-
-	Persona update(Persona persona);
-
-	void delete(Long id);
-	
-	Optional<Persona> obtenerPorId(Long id);
-	
-	Optional<Persona> obtenerPorIdentificacion(String identificacion);
+//	Persona create(Persona persona);
+//
+//	List<Persona> read();
+//
+//	Persona update(Persona persona);
+//
+//	void delete(Long id);
+//	
+//	Optional<Persona> obtenerPorId(Long id);
+//	
+//	Optional<Persona> obtenerPorIdentificacion(String identificacion);
 
 }

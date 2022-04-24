@@ -1,34 +1,17 @@
 package com.cuenta.bancaria.cuenta.bancaria.model;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.MappedSuperclass;
 
 /**
  * The persistent class for the persona database table.
  * 
  */
-@Entity
-@NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p")
+@MappedSuperclass
 public class Persona implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_persona")
-	private Long idPersona;
-
-	@Lob
 	private String direccion;
 
 	private int edad;
@@ -40,18 +23,6 @@ public class Persona implements Serializable {
 	private String nombre;
 
 	private int telefono;
-
-	@OneToMany(mappedBy = "persona")
-	@JsonIgnore
-	private List<Cliente> clientes;
-
-	public Long getIdPersona() {
-		return idPersona;
-	}
-
-	public void setIdPersona(Long idPersona) {
-		this.idPersona = idPersona;
-	}
 
 	public String getDireccion() {
 		return direccion;
@@ -99,14 +70,6 @@ public class Persona implements Serializable {
 
 	public void setTelefono(int telefono) {
 		this.telefono = telefono;
-	}
-
-	public List<Cliente> getClientes() {
-		return clientes;
-	}
-
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
 	}
 
 }

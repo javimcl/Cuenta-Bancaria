@@ -17,42 +17,42 @@ import com.cuenta.bancaria.cuenta.bancaria.service.PersonaService;
  * @author JAVIM
  *
  */
-@Service
+//@Service
 public class PersonaServiceImpl implements PersonaService {
 
-	@Autowired
-	private PersonaRepository personaRepository;
-
-	@Override
-	public Persona create(Persona persona) {
-		return personaRepository.save(persona);
-	}
-
-	@Override
-	public List<Persona> read() {
-		return personaRepository.findAll();
-	}
-
-	@Override
-	public Persona update(Persona persona) {
-		return personaRepository.save(persona);
-	}
-
-	@Override
-	public void delete(Long id) {
-		personaRepository.deleteById(id);
-
-	}
-
-	@Override
-	public Optional<Persona> obtenerPorId(Long id) {
-		return personaRepository.findById(id);
-	}
-
-	@Override
-	public Optional<Persona> obtenerPorIdentificacion(String identificacion) {
-		return personaRepository.findByIdentificacion(identificacion);
-	}
+//	@Autowired
+//	private PersonaRepository personaRepository;
+//
+//	@Override
+//	public Persona create(Persona persona) {
+//		return personaRepository.save(persona);
+//	}
+//
+//	@Override
+//	public List<Persona> read() {
+//		return personaRepository.findAll();
+//	}
+//
+//	@Override
+//	public Persona update(Persona persona) {
+//		return personaRepository.save(persona);
+//	}
+//
+//	@Override
+//	public void delete(Long id) {
+//		personaRepository.deleteById(id);
+//
+//	}
+//
+//	@Override
+//	public Optional<Persona> obtenerPorId(Long id) {
+//		return personaRepository.findById(id);
+//	}
+//
+//	@Override
+//	public Optional<Persona> obtenerPorIdentificacion(String identificacion) {
+//		return personaRepository.findByIdentificacion(identificacion);
+//	}
 
 
 
