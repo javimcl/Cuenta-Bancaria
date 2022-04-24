@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ import com.cuenta.bancaria.cuenta.bancaria.service.CuentaService;
  *
  */
 @RestController
-@RequestMapping("/api/cuenta")
+@RequestMapping("/api/cuentas")
 public class CuentaController {
 
 	private static final Logger log = LoggerFactory.getLogger(CuentaController.class);
@@ -51,26 +52,25 @@ public class CuentaController {
 	@PostMapping
 	public ResponseEntity<?> create(@Validated @RequestBody CuentaEntradaDto cuentaEntradaDto) {
 		try {
-//			if (!ObjectUtils.isEmpty(cuentaEntradaDto.getIdentificacion())) {
-//				Optional<Persona> personaEncontrada = personaService
-//						.obtenerPorIdentificacion(cuentaEntradaDto.getIdentificacion());
-//				if (personaEncontrada.isPresent()) {
-//					cuentaEntradaDto.setIdPersona(personaEncontrada.get().getIdPersona());
-//				} else {
-//					return new ResponseEntity<>("No existe la persona con esta identificación", HttpStatus.BAD_REQUEST);
-//				}
-//			}
 
-			Optional<Cliente> cliente = clienteService.obtenerPorIdCliente(cuentaEntradaDto.getIdPersona());
-			if (cliente.isPresent()) {
-				if (EstadoEmun.INACTIVO.getDescripcion().equals(cliente.get().getEstado())) {
+			Optional<Cliente> clienteEncontrado = null;
+			if (!ObjectUtils.isEmpty(cuentaEntradaDto.getIdentificacion())) {
+				clienteEncontrado = clienteService.obtenerPorIdentificacion(cuentaEntradaDto.getIdentificacion());
+			} else {
+				clienteEncontrado = clienteService.obtenerPorId(cuentaEntradaDto.getIdCliente());
+			}
+
+			if (null != clienteEncontrado && clienteEncontrado.isPresent()) {
+				Cliente cliente = clienteEncontrado.get();
+				if (EstadoEmun.INACTIVO.getDescripcion().equals(cliente.getEstado())) {
 					return new ResponseEntity<>("El cliente se encuentra inactivo", HttpStatus.BAD_REQUEST);
 				} else {
 					Cuenta cuenta = new Cuenta();
 					cuenta.setNumero(Integer.parseInt(cuentaEntradaDto.getNumero()));
 					cuenta.setTipoCuenta(cuentaEntradaDto.getTipoCuenta());
-					cuenta.setSaldoInicial(BigDecimal.valueOf(Double.valueOf(cuentaEntradaDto.getSaldoInicial())));
+					cuenta.setSaldoInicial(BigDecimal.valueOf(cuentaEntradaDto.getSaldoInicial()));
 					cuenta.setEstado(EstadoEmun.ACTIVO.getDescripcion());
+					cuenta.setIdCliente(clienteEncontrado.get().getClienteId());
 					Cuenta cuentaGuardada = service.create(cuenta);
 					return new ResponseEntity<Cuenta>(cuentaGuardada, HttpStatus.CREATED);
 				}
@@ -87,9 +87,18 @@ public class CuentaController {
 	@GetMapping
 	public ResponseEntity<?> obtenerCuentaPorCliente(@Validated @RequestBody CuentaEntradaDto cuentaEntradaDto) {
 		try {
-			List<Cuenta> listaCuenta = service.obtenerPorCliente(cuentaEntradaDto.getIdPersona());
+			Optional<Cliente> clienteEncontrado = null;
+			if (!ObjectUtils.isEmpty(cuentaEntradaDto.getIdentificacion())) {
+				clienteEncontrado = clienteService.obtenerPorIdentificacion(cuentaEntradaDto.getIdentificacion());
+			} else {
+				clienteEncontrado = clienteService.obtenerPorId(cuentaEntradaDto.getIdCliente());
+			}
+			if (ObjectUtils.isEmpty(clienteEncontrado)) {
+				return new ResponseEntity<>("No existe el cliente", HttpStatus.BAD_REQUEST);
+			}
+			List<Cuenta> listaCuenta = service.obtenerPorCliente(clienteEncontrado.get().getClienteId());
 			if (null == listaCuenta || listaCuenta.isEmpty()) {
-				return new ResponseEntity<>("No existe cuenta con el id", HttpStatus.OK);
+				return new ResponseEntity<>("No existe cuenta con el id", HttpStatus.BAD_REQUEST);
 			} else {
 				return new ResponseEntity<List<Cuenta>>(listaCuenta, HttpStatus.OK);
 			}
@@ -104,6 +113,9 @@ public class CuentaController {
 	@PutMapping
 	public ResponseEntity<?> update(@Validated @RequestBody CuentaEntradaDto cuentaEntradaDto) {
 		try {
+			if (ObjectUtils.isEmpty(cuentaEntradaDto.getIdCuenta())) {
+				return new ResponseEntity<>("Debe colocar el id de la cuenta", HttpStatus.BAD_REQUEST);
+			}
 			Optional<Cuenta> cuenta = service.obtenerPorId(cuentaEntradaDto.getIdCuenta());
 			if (cuenta.isPresent()) {
 				Cuenta cuentaActualizar = cuenta.get();
@@ -129,7 +141,7 @@ public class CuentaController {
 			Optional<Cuenta> cuenta = service.obtenerPorId(id);
 			if (cuenta.isPresent()) {
 				service.delete(id);
-				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+				return new ResponseEntity<>("Registro Eliminado", HttpStatus.OK);
 			}
 			return new ResponseEntity<String>("No se puede eliminar la cuenta con id: " + id + " no existe el registro",
 					HttpStatus.BAD_REQUEST);

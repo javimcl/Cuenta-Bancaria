@@ -16,6 +16,8 @@ public class MovimientoEntradaDto {
 	private Long idCliente;
 	private Long idCuenta;
 	private double valor;
+	private String identificacion;
+	private int numeroCuenta;
 
 	public String getId() {
 		return id;
@@ -72,5 +74,25 @@ public class MovimientoEntradaDto {
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
+
+	public String getIdentificacion() {
+		return identificacion;
+	}
+
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
+	}
+
+	public int getNumeroCuenta() {
+		return numeroCuenta;
+	}
+
+	public void setNumeroCuenta(int numeroCuenta) {
+		this.numeroCuenta = numeroCuenta;
+	}
+
+
+	
+	
 
 }

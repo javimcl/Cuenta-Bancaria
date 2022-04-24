@@ -13,9 +13,10 @@ public class CuentaEntradaDto {
 	private String identificacion;
 	private String numero;
 	private String tipoCuenta;
-	private String saldoInicial;
+	private double saldoInicial;
 	private String estado;
-	private Long idPersona;
+	private Long idCliente;
+	private String numeroCuenta;
 	
 	
 	public Long getIdCuenta() {
@@ -42,10 +43,11 @@ public class CuentaEntradaDto {
 	public void setTipoCuenta(String tipoCuenta) {
 		this.tipoCuenta = tipoCuenta;
 	}
-	public String getSaldoInicial() {
+
+	public double getSaldoInicial() {
 		return saldoInicial;
 	}
-	public void setSaldoInicial(String saldoInicial) {
+	public void setSaldoInicial(double saldoInicial) {
 		this.saldoInicial = saldoInicial;
 	}
 	public String getEstado() {
@@ -54,12 +56,19 @@ public class CuentaEntradaDto {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public Long getIdPersona() {
-		return idPersona;
+	public Long getIdCliente() {
+		return idCliente;
 	}
-	public void setIdPersona(Long idPersona) {
-		this.idPersona = idPersona;
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
 	}
+	public String getNumeroCuenta() {
+		return numeroCuenta;
+	}
+	public void setNumeroCuenta(String numeroCuenta) {
+		this.numeroCuenta = numeroCuenta;
+	}
+
 	
 	
 

@@ -58,7 +58,7 @@ public class ClienteController {
 				cliente.setIdentificacion(clienteEntradaDto.getIdentificacion());
 				cliente.setDireccion(clienteEntradaDto.getDireccion());
 				cliente.setTelefono(clienteEntradaDto.getTelefono());
-				cliente.setContrasena(clienteEntradaDto.getContrasenia());
+				cliente.setContrasena(clienteEntradaDto.getContrasena());
 				cliente.setEstado(Boolean.TRUE.toString());
 				Cliente clienteGuardado = service.create(cliente);
 				return new ResponseEntity<Cliente>(clienteGuardado, HttpStatus.CREATED);
@@ -96,15 +96,15 @@ public class ClienteController {
 			}
 
 			if (null != clienteEncontrado && clienteEncontrado.isPresent()) {
-				Cliente cliente = new Cliente();
+				Cliente cliente = clienteEncontrado.get();
 				cliente.setNombre(clienteEntradaDto.getNombre());
 				cliente.setGenero(clienteEntradaDto.getGenero());
 				cliente.setEdad(clienteEntradaDto.getEdad());
 				cliente.setIdentificacion(clienteEntradaDto.getIdentificacion());
 				cliente.setDireccion(clienteEntradaDto.getDireccion());
 				cliente.setTelefono(clienteEntradaDto.getTelefono());
-				cliente.setContrasena(clienteEntradaDto.getContrasenia());
-				cliente.setEstado(Boolean.TRUE.toString());
+				cliente.setContrasena(clienteEntradaDto.getContrasena());
+				cliente.setEstado(clienteEntradaDto.getEstado());
 				Cliente clienteGuardado = service.update(cliente);
 				return new ResponseEntity<Cliente>(clienteGuardado, HttpStatus.OK);
 

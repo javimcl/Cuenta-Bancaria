@@ -25,6 +25,9 @@ public interface CuentaService {
 	
 	List<Cuenta> obtenerPorCliente(Long id);
 	
+	Optional<Cuenta> obtenerPorNumeroCuenta(int numeroCuenta);
+	
+	
 	
 	
 

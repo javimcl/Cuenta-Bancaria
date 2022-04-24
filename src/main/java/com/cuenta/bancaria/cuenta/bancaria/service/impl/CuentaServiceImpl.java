@@ -54,4 +54,9 @@ public class CuentaServiceImpl implements CuentaService {
 		return cuentaRepository.findByIdCliente(id);
 	}
 
+	@Override
+	public Optional<Cuenta> obtenerPorNumeroCuenta(int numeroCuenta) {
+		return cuentaRepository.findByNumero(numeroCuenta);
+	}
+
 }

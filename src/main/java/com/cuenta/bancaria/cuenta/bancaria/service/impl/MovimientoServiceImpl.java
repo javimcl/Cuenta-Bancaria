@@ -3,6 +3,7 @@
  */
 package com.cuenta.bancaria.cuenta.bancaria.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ import com.cuenta.bancaria.cuenta.bancaria.service.MovimientoService;
  */
 @Service
 public class MovimientoServiceImpl implements MovimientoService {
-	
+
 	@Autowired
 	private MovimientoRepository movimientoRepository;
 
@@ -30,7 +31,7 @@ public class MovimientoServiceImpl implements MovimientoService {
 
 	@Override
 	public List<Movimiento> read() {
-		
+
 		return movimientoRepository.findAll();
 	}
 
@@ -47,13 +48,23 @@ public class MovimientoServiceImpl implements MovimientoService {
 
 	@Override
 	public Optional<Movimiento> obtenerPorId(Long id) {
-		
+
 		return movimientoRepository.findById(id);
 	}
 
 	@Override
 	public List<Movimiento> obtenerPorClienteCuenta(Long idCliente, Long idCuenta) {
 		return movimientoRepository.findByIdClienteAndIdCuenta(idCliente, idCuenta);
+	}
+
+	@Override
+	public List<Movimiento> obtenerPorIdentificacionNumeroCuenta(String identificacion, int numeroCuenta) {
+		return movimientoRepository.buscarPorClienteCuenta(identificacion, numeroCuenta);
+	}
+
+	@Override
+	public Double obtenerSumaValorClienteCuentaFecha(Long clienteId, Long idCuenta, String tipoMovimiento, Date fecha) {
+		return movimientoRepository.sumaValorPorClienteCuentaFecha(clienteId, idCuenta, tipoMovimiento, fecha);
 	}
 
 }

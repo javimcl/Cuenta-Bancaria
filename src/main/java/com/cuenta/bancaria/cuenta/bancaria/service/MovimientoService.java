@@ -3,6 +3,7 @@
  */
 package com.cuenta.bancaria.cuenta.bancaria.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,5 +25,9 @@ public interface MovimientoService {
 	Optional<Movimiento> obtenerPorId(Long id);
 
 	List<Movimiento> obtenerPorClienteCuenta(Long idCliente, Long idCuenta);
+	
+	List<Movimiento> obtenerPorIdentificacionNumeroCuenta(String identificacion, int numeroCuenta);
+	
+	Double obtenerSumaValorClienteCuentaFecha(Long clienteId, Long idCuenta, String tipoMovimiento, Date fecha);
 
 }

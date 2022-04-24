@@ -10,7 +10,7 @@ package com.cuenta.bancaria.cuenta.bancaria.controller.dto;
 public class ClienteEntradaDto {
 
 	private String identificacion;
-	private String contrasenia;
+	private String contrasena;
 	private String estado;
 	private String direccion;
 	private int edad;
@@ -27,12 +27,12 @@ public class ClienteEntradaDto {
 		this.identificacion = identificacion;
 	}
 
-	public String getContrasenia() {
-		return contrasenia;
+	public String getContrasena() {
+		return contrasena;
 	}
 
-	public void setContrasenia(String contrasenia) {
-		this.contrasenia = contrasenia;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 	public String getEstado() {

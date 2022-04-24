@@ -1,6 +1,7 @@
 package com.cuenta.bancaria.cuenta.bancaria.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,10 +16,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 /**
  * The persistent class for the movimiento database table.
  * 
  */
+@DynamicUpdate
 @Entity
 @NamedQuery(name = "Movimiento.findAll", query = "SELECT m FROM Movimiento m")
 public class Movimiento implements Serializable {
@@ -31,7 +35,7 @@ public class Movimiento implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date fecha;
 
-	private double saldo;
+	private BigDecimal saldo;
 
 	@Column(name = "tipo_movimiento")
 	private String tipoMovimiento;
@@ -70,11 +74,11 @@ public class Movimiento implements Serializable {
 		this.fecha = fecha;
 	}
 
-	public double getSaldo() {
+	public BigDecimal getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(double saldo) {
+	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
 	}
 

@@ -15,12 +15,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the cuenta database table.
  * 
  */
+@DynamicUpdate
 @Entity
 @NamedQuery(name = "Cuenta.findAll", query = "SELECT c FROM Cuenta c")
 public class Cuenta implements Serializable {
@@ -44,6 +47,7 @@ public class Cuenta implements Serializable {
 	// bi-directional many-to-one association to Cliente
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_cliente", insertable = false, updatable = false)
+	@JsonIgnore
 	private Cliente cliente;
 
 	// bi-directional many-to-one association to Movimiento

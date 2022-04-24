@@ -11,12 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The persistent class for the cliente database table.
  * 
  */
+@DynamicUpdate
 @Entity
 @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c")
 public class Cliente extends Persona implements Serializable {
