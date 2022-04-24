@@ -23,7 +23,9 @@ public interface CuentaService {
 	
 	Optional<Cuenta> obtenerPorId(Long id);
 	
-	Optional<Cuenta> obtenerPorCliente(Long id);
+	List<Cuenta> obtenerPorCliente(Long id);
+	
+	
 	
 
 }

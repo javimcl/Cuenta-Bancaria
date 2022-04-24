@@ -9,11 +9,21 @@ package com.cuenta.bancaria.cuenta.bancaria.controller.dto;
  */
 public class CuentaEntradaDto {
 	
+	private Long idCuenta;
 	private String identificacion;
 	private String numero;
 	private String tipoCuenta;
 	private String saldoInicial;
 	private String estado;
+	private Long idPersona;
+	
+	
+	public Long getIdCuenta() {
+		return idCuenta;
+	}
+	public void setIdCuenta(Long idCuenta) {
+		this.idCuenta = idCuenta;
+	}
 	public String getIdentificacion() {
 		return identificacion;
 	}
@@ -44,6 +54,13 @@ public class CuentaEntradaDto {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	public Long getIdPersona() {
+		return idPersona;
+	}
+	public void setIdPersona(Long idPersona) {
+		this.idPersona = idPersona;
+	}
+	
 	
 
 }

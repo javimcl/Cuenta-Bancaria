@@ -50,7 +50,7 @@ public class CuentaServiceImpl implements CuentaService {
 	}
 
 	@Override
-	public Optional<Cuenta> obtenerPorCliente(Long id) {
+	public List<Cuenta> obtenerPorCliente(Long id) {
 		return cuentaRepository.findByIdCliente(id);
 	}
 

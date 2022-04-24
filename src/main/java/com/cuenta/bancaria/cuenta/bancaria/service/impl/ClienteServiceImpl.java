@@ -46,7 +46,7 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public Optional<Cliente> obtenerPorEstadoIdCliente(String estado, Long id) {
-		return clienteRepository.findByEstadoAndIdCliente(estado, id);
+		return clienteRepository.findByEstadoAndClienteId(estado, id);
 	}
 
 	@Override
@@ -56,7 +56,12 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public Optional<Cliente> obtenerPorIdCliente(Long id) {
-		return clienteRepository.findByIdCliente(id);
+		return clienteRepository.findByClienteId(id);
+	}
+
+	@Override
+	public List<Cliente> obtenerPorIdPersona(Long id) {
+		return clienteRepository.buscarPorPersona(id);
 	}
 
 }

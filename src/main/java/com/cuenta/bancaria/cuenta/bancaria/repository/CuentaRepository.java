@@ -3,7 +3,7 @@
  */
 package com.cuenta.bancaria.cuenta.bancaria.repository;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,5 +15,5 @@ import com.cuenta.bancaria.cuenta.bancaria.model.Cuenta;
  */
 public interface CuentaRepository extends JpaRepository<Cuenta, Long> {
 
-	Optional<Cuenta> findByIdCliente(Long id);
+	List<Cuenta> findByIdCliente(Long id);
 }

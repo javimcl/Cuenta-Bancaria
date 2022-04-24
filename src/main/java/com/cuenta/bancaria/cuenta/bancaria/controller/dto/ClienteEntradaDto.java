@@ -12,6 +12,7 @@ public class ClienteEntradaDto {
 	private String identificacion;
 	private String contrasenia;
 	private String estado;
+	private Long idPersona;
 
 	public String getIdentificacion() {
 		return identificacion;
@@ -36,5 +37,14 @@ public class ClienteEntradaDto {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	public Long getIdPersona() {
+		return idPersona;
+	}
+
+	public void setIdPersona(Long idPersona) {
+		this.idPersona = idPersona;
+	}
+	
 
 }

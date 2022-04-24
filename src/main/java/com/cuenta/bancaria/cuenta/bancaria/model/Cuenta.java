@@ -27,7 +27,7 @@ public class Cuenta implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_cuenta")
-	private int idCuenta;
+	private Long idCuenta;
 
 	private String estado;
 
@@ -41,19 +41,31 @@ public class Cuenta implements Serializable {
 
 	// bi-directional many-to-one association to Cliente
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idCliente")
+	@JoinColumn(name = "id_cliente", insertable = false, updatable = false)
 	private Cliente cliente;
 
 	// bi-directional many-to-one association to Movimiento
 	@OneToMany(mappedBy = "cuenta")
 	private List<Movimiento> movimientos;
 
-	public int getIdCuenta() {
+	@Column(name = "id_cliente")
+	private Long idCliente;
+
+
+	public Long getIdCuenta() {
 		return idCuenta;
 	}
 
-	public void setIdCuenta(int idCuenta) {
+	public void setIdCuenta(Long idCuenta) {
 		this.idCuenta = idCuenta;
+	}
+
+	public Long getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	public String getEstado() {

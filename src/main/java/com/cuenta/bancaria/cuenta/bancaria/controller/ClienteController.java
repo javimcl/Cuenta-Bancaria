@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,18 +46,23 @@ public class ClienteController {
 	@PostMapping
 	public ResponseEntity<?> create(@Validated @RequestBody ClienteEntradaDto clienteEntradaDto) {
 		try {
-			Optional<Persona> personaEncontrada = personaService
-					.obtenerPorIdentificacion(clienteEntradaDto.getIdentificacion());
-			if (!personaEncontrada.isPresent()) {
-				return new ResponseEntity<>("No existe la persona con esta identificación", HttpStatus.BAD_REQUEST);
+			if (!ObjectUtils.isEmpty(clienteEntradaDto.getIdentificacion())) {
+				Optional<Persona> personaEncontrada = personaService
+						.obtenerPorIdentificacion(clienteEntradaDto.getIdentificacion());
+				if (personaEncontrada.isPresent()) {
+					clienteEntradaDto.setIdPersona(personaEncontrada.get().getIdPersona());
+				} else {
+					return new ResponseEntity<>("No existe la persona con esta identificación", HttpStatus.BAD_REQUEST);
+				}
 			}
+
 			Optional<Cliente> clienteEncontrado = service.obtenerPorEstadoIdCliente(Boolean.TRUE.toString(),
-					personaEncontrada.get().getIdPersona());
+					clienteEntradaDto.getIdPersona());
 			if (clienteEncontrado.isEmpty()) {
 				Cliente cliente = new Cliente();
 				cliente.setContrasena(clienteEntradaDto.getContrasenia());
 				cliente.setEstado(Boolean.TRUE.toString());
-				cliente.setPersona(personaEncontrada.get());
+				cliente.setIdPersona(clienteEntradaDto.getIdPersona());
 				Cliente clienteGuardado = service.create(cliente);
 				return new ResponseEntity<Cliente>(clienteGuardado, HttpStatus.CREATED);
 			} else {
@@ -70,9 +76,23 @@ public class ClienteController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Cliente>> read() {
-		List<Cliente> list = service.read();
-		return new ResponseEntity<List<Cliente>>(list, HttpStatus.OK);
+	public ResponseEntity<?> obtenerClientePorPersona(@Validated @RequestBody ClienteEntradaDto clienteEntradaDto) {
+		if (!ObjectUtils.isEmpty(clienteEntradaDto.getIdentificacion())) {
+			Optional<Persona> personaEncontrada = personaService
+					.obtenerPorIdentificacion(clienteEntradaDto.getIdentificacion());
+			if (personaEncontrada.isPresent()) {
+				clienteEntradaDto.setIdPersona(personaEncontrada.get().getIdPersona());
+			} else {
+				return new ResponseEntity<>("No existe la persona con esta identificación", HttpStatus.BAD_REQUEST);
+			}
+		}
+
+		List<Cliente> listaCliente = service.obtenerPorIdPersona(clienteEntradaDto.getIdPersona());
+		if (null == listaCliente || listaCliente.isEmpty()) {
+			return new ResponseEntity<>("No existe clientes con el parametro", HttpStatus.BAD_REQUEST);
+		} else {
+			return new ResponseEntity<List<Cliente>>(listaCliente, HttpStatus.OK);
+		}
 
 	}
 
@@ -105,11 +125,11 @@ public class ClienteController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		try {
-			
+
 			Optional<Cliente> personaEncontrada = service.obtenerPorId(id);
 			if (personaEncontrada.isPresent()) {
 				service.delete(id);
-				return new ResponseEntity<>("Registro Eliminado",HttpStatus.OK);
+				return new ResponseEntity<>("Registro Eliminado", HttpStatus.OK);
 			}
 			return new ResponseEntity<String>(
 					"No se puede eliminar el registro con id: " + id + " no existe el registro",

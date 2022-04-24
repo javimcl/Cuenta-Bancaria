@@ -3,7 +3,6 @@
  */
 package com.cuenta.bancaria.cuenta.bancaria.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cuenta.bancaria.cuenta.bancaria.controller.dto.ClienteEntradaDto;
 import com.cuenta.bancaria.cuenta.bancaria.model.Persona;
 import com.cuenta.bancaria.cuenta.bancaria.service.PersonaService;
 
@@ -56,9 +56,17 @@ public class PersonaController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<Persona>> read() {
-		List<Persona> list = service.read();
-		return new ResponseEntity<List<Persona>>(list, HttpStatus.OK);
+	public ResponseEntity<?> obtenerPorIdentificacion(@Validated @RequestBody ClienteEntradaDto clienteEntradaDto) {
+		try {
+			Optional<Persona> personaEncontrada = service.obtenerPorIdentificacion(clienteEntradaDto.getIdentificacion());
+			if (personaEncontrada.isPresent()) {
+				return new ResponseEntity<Persona>(personaEncontrada.get(), HttpStatus.OK);
+			}
+			return new ResponseEntity<>("No existe una persona con esta identificacion", HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			log.error("Por favor comuniquese con el administrador", e);
+			return new ResponseEntity<>("Por favor comuniquese con el administrador", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@PutMapping
@@ -84,7 +92,7 @@ public class PersonaController {
 			Optional<Persona> personaEncontrada = service.obtenerPorId(id);
 			if (personaEncontrada.isPresent()) {
 				service.delete(id);
-				return new ResponseEntity<>("Registro Eliminado",HttpStatus.OK);
+				return new ResponseEntity<>("Registro Eliminado", HttpStatus.OK);
 			}
 			return new ResponseEntity<String>(
 					"No se puede eliminar el registro con id: " + id + " no existe el registro",

@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the cliente database table.
  * 
@@ -26,29 +28,34 @@ public class Cliente implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cliente_Id")
-	private int clienteId;
+	private Long clienteId;
 
 	private String contrasena;
 
 	private String estado;
 
 	@OneToMany(mappedBy = "cliente")
+	@JsonIgnore
 	private List<Cuenta> cuentas;
 
 	@OneToMany(mappedBy = "cliente")
+	@JsonIgnore
 	private List<Movimiento> movimientos;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idPersona")
+	@JoinColumn(name = "id_persona", insertable = false, updatable = false)
 	private Persona persona;
-	@Column(name = "idPersona")
+	
+	@Column(name = "id_persona")
 	private Long idPersona;
 
-	public int getClienteId() {
+
+
+	public Long getClienteId() {
 		return clienteId;
 	}
 
-	public void setClienteId(int clienteId) {
+	public void setClienteId(Long clienteId) {
 		this.clienteId = clienteId;
 	}
 
@@ -99,7 +106,5 @@ public class Cliente implements Serializable {
 	public void setIdPersona(Long idPersona) {
 		this.idPersona = idPersona;
 	}
-	
-	
 
 }

@@ -4,6 +4,7 @@
 package com.cuenta.bancaria.cuenta.bancaria.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,17 @@ public class MovimientoServiceImpl implements MovimientoService {
 	public void delete(Long id) {
 		movimientoRepository.deleteById(id);
 
+	}
+
+	@Override
+	public Optional<Movimiento> obtenerPorId(Long id) {
+		
+		return movimientoRepository.findById(id);
+	}
+
+	@Override
+	public List<Movimiento> obtenerPorClienteCuenta(Long idCliente, Long idCuenta) {
+		return movimientoRepository.findByIdClienteAndIdCuenta(idCliente, idCuenta);
 	}
 
 }

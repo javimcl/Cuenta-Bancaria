@@ -22,9 +22,11 @@ public interface ClienteService {
 	void delete(Long id);
 
 	Optional<Cliente> obtenerPorEstadoIdCliente(String estado, Long id);
-	
+
 	Optional<Cliente> obtenerPorId(Long id);
-	
+
 	Optional<Cliente> obtenerPorIdCliente(Long id);
+
+	List<Cliente> obtenerPorIdPersona(Long id);
 
 }
