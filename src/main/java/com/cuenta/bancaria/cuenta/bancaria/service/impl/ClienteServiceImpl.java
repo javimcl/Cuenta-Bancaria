@@ -61,7 +61,7 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public List<Cliente> obtenerPorIdPersona(Long id) {
-		return clienteRepository.buscarPorPersona(id);
+		return clienteRepository.findByIdPersona(id);
 	}
 
 }

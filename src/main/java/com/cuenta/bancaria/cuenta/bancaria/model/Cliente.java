@@ -44,6 +44,7 @@ public class Cliente implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_persona", insertable = false, updatable = false)
+	@JsonIgnore
 	private Persona persona;
 	
 	@Column(name = "id_persona")

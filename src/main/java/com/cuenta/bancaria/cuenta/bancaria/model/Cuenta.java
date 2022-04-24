@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the cuenta database table.
  * 
@@ -46,6 +48,7 @@ public class Cuenta implements Serializable {
 
 	// bi-directional many-to-one association to Movimiento
 	@OneToMany(mappedBy = "cuenta")
+	@JsonIgnore
 	private List<Movimiento> movimientos;
 
 	@Column(name = "id_cliente")

@@ -3,7 +3,6 @@ package com.cuenta.bancaria.cuenta.bancaria.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +41,7 @@ public class Persona implements Serializable {
 
 	private int telefono;
 
-	@OneToMany(mappedBy = "persona", cascade = { CascadeType.ALL }, orphanRemoval = true)
+	@OneToMany(mappedBy = "persona")
 	@JsonIgnore
 	private List<Cliente> clientes;
 

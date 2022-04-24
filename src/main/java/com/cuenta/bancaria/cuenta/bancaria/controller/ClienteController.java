@@ -87,7 +87,7 @@ public class ClienteController {
 			}
 		}
 
-		List<Cliente> listaCliente = service.obtenerPorIdPersona(clienteEntradaDto.getIdPersona());
+		List<Cliente> listaCliente = service.obtenerPorIdPersona(Long.valueOf(clienteEntradaDto.getIdPersona()));
 		if (null == listaCliente || listaCliente.isEmpty()) {
 			return new ResponseEntity<>("No existe clientes con el parametro", HttpStatus.BAD_REQUEST);
 		} else {
