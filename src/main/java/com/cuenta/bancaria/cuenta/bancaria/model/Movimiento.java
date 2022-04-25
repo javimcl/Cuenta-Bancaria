@@ -43,7 +43,7 @@ public class Movimiento implements Serializable {
 	private String tipoMovimiento;
 
 	private BigDecimal valor;
-	
+
 	@Column(name = "saldo_anterior")
 	private BigDecimal saldoAnterior;
 
@@ -144,6 +144,5 @@ public class Movimiento implements Serializable {
 	public void setSaldoAnterior(BigDecimal saldoAnterior) {
 		this.saldoAnterior = saldoAnterior;
 	}
-	
 
 }

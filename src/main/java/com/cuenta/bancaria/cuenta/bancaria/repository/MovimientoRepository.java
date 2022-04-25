@@ -26,9 +26,10 @@ public interface MovimientoRepository extends JpaRepository<Movimiento, Long> {
 	@Query(value = "SELECT COALESCE(SUM(c.valor),0) FROM Movimiento c WHERE c.cliente.clienteId= :clienteId AND c.cuenta.idCuenta= :idCuenta AND tipoMovimiento= :tipoMovimiento AND CONVERT(c.fecha, DATE) = CONVERT(:fecha, DATE)")
 	Double sumaValorPorClienteCuentaFecha(Long clienteId, Long idCuenta, String tipoMovimiento, Date fecha);
 	
-	@Query( value = "SELECT m.fecha, cl.nombre, cu.numero, cu.tipo_cuenta as tipoCuenta,  m.saldo_anterior as saldoAnterior, cu.estado, m.valor, m.saldo "
+	@Query( value = "SELECT CONVERT(m.fecha, DATE) as fecha, cl.nombre, cu.numero, cu.tipo_cuenta as tipoCuenta,  m.saldo_anterior as saldoAnterior, cu.estado, m.valor, m.saldo "
 			+ "FROM cuentabancaria.movimiento m, cuentabancaria.cuenta cu, cuentabancaria.cliente cl "
 			+ "where m.id_cliente = cl.cliente_Id and m.id_cuenta = cu.id_cuenta and cu.id_cliente = cl.cliente_Id "
 			+ "and CONVERT(m.fecha, DATE) between CONVERT(:fechaInicial, DATE) AND CONVERT(:fechaFinal, DATE)", nativeQuery = true)
 	List<ReporteDto> buscarPorEntreFechas(Date fechaInicial, Date fechaFinal); 
+	 
 }

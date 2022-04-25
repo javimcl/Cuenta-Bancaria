@@ -77,6 +77,7 @@ public class MovimientoController {
 			movimiento.setIdCliente(cliente.get().getClienteId());
 			movimiento.setIdCuenta(cuenta.get().getIdCuenta());
 			BigDecimal saldo;
+			movimientoEntradaDto.setValor(Math.abs(movimientoEntradaDto.getValor()));
 			if (TipoMovimientoEnum.CREDITO.getDescripcion()
 					.equalsIgnoreCase(movimientoEntradaDto.getTipoMovimiento())) {
 				saldo = cuenta.get().getSaldoInicial().add(BigDecimal.valueOf(movimientoEntradaDto.getValor()));
@@ -91,6 +92,8 @@ public class MovimientoController {
 					return new ResponseEntity<>("Cupo diario Excedido", HttpStatus.BAD_REQUEST);
 				}
 				saldo = cuenta.get().getSaldoInicial().subtract(BigDecimal.valueOf(movimientoEntradaDto.getValor()));
+				movimientoEntradaDto.setValor(-movimientoEntradaDto.getValor());
+				
 			} else {
 				return new ResponseEntity<>("Tipo de movimiento no encontrado", HttpStatus.BAD_REQUEST);
 			}
