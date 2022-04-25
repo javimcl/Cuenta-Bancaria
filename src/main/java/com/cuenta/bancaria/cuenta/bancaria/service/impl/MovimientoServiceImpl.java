@@ -16,8 +16,14 @@ import com.cuenta.bancaria.cuenta.bancaria.repository.MovimientoRepository;
 import com.cuenta.bancaria.cuenta.bancaria.service.MovimientoService;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Servicio para el Movimiento. </b>
+ * 
+ * @author Javier Lucero
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: Javier Lucero $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 @Service
 public class MovimientoServiceImpl implements MovimientoService {

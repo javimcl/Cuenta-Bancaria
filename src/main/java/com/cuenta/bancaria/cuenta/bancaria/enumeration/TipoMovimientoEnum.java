@@ -4,8 +4,14 @@
 package com.cuenta.bancaria.cuenta.bancaria.enumeration;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Enumeracion del tipo de movimiento. </b>
+ * 
+ * @author Javier Lucero
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: Javier Lucero $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 public enum TipoMovimientoEnum {
 

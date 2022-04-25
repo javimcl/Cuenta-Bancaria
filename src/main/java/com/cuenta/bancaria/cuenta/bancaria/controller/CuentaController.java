@@ -31,8 +31,14 @@ import com.cuenta.bancaria.cuenta.bancaria.service.ClienteService;
 import com.cuenta.bancaria.cuenta.bancaria.service.CuentaService;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Clase controlador de las cuentas. </b>
+ * 
+ * @author jluceroc
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: jluceroc $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 @RestController
 @RequestMapping("/api/cuentas")
@@ -43,12 +49,20 @@ public class CuentaController {
 	@Autowired
 	private CuentaService service;
 
-//	@Autowired
-//	private PersonaService personaService;
-
 	@Autowired
 	private ClienteService clienteService;
 
+	/**
+	 * 
+	 * <b> Metodo que crea cuentas. </b>
+	 * <p>
+	 * [Author: Javier Lucero, Date: 25 abr. 2022]
+	 * </p>
+	 *
+	 * @param cuentaEntradaDto
+	 *            parametro de entrada
+	 * @return ResponseEntity<?> lista o mensaje de error
+	 */
 	@PostMapping
 	public ResponseEntity<?> create(@Validated @RequestBody CuentaEntradaDto cuentaEntradaDto) {
 		try {
@@ -84,6 +98,17 @@ public class CuentaController {
 		}
 	}
 
+	/**
+	 * 
+	 * <b> Metodo para obtiene un cliente por su identidicacion. </b>
+	 * <p>
+	 * [Author: Javier Lucero, Date: 25 abr. 2022]
+	 * </p>
+	 *
+	 * @param cuentaEntradaDto
+	 *            parametro de entrada
+	 * @return ResponseEntity<?> lista o mensaje de error
+	 */
 	@GetMapping
 	public ResponseEntity<?> obtenerCuentaPorCliente(@Validated @RequestBody CuentaEntradaDto cuentaEntradaDto) {
 		try {
@@ -110,6 +135,17 @@ public class CuentaController {
 
 	}
 
+	/**
+	 * 
+	 * <b> Metodo que actualiza la cuenta. </b>
+	 * <p>
+	 * [Author: Javier Lucero, Date: 25 abr. 2022]
+	 * </p>
+	 *
+	 * @param cuentaEntradaDto
+	 *            parametro de entrada
+	 * @return ResponseEntity<?> lista o mensaje de error
+	 */
 	@PutMapping
 	public ResponseEntity<?> update(@Validated @RequestBody CuentaEntradaDto cuentaEntradaDto) {
 		try {
@@ -135,6 +171,17 @@ public class CuentaController {
 		}
 	}
 
+	/**
+	 * 
+	 * <b> Metodo que elimina un registro por su id. </b>
+	 * <p>
+	 * [Author: Javier Lucero, Date: 25 abr. 2022]
+	 * </p>
+	 *
+	 * @param id
+	 *            parametro de entrada
+	 * @return ResponseEntity<?> lista o mensaje de error
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		try {

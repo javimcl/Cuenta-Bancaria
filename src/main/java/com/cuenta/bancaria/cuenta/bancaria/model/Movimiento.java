@@ -21,8 +21,14 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * The persistent class for the movimiento database table.
  * 
+ * <b> Clase entidad de la tabla movimiento. </b>
+ * 
+ * @author Javier Lucero
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: Javier Lucero $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 @DynamicUpdate
 @Entity

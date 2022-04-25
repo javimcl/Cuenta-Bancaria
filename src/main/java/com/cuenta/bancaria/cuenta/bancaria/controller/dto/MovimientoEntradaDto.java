@@ -4,8 +4,14 @@
 package com.cuenta.bancaria.cuenta.bancaria.controller.dto;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Clase Dto para la entrada del movimiento. </b>
+ * 
+ * @author Javier Lucero
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: Javier Lucero $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 public class MovimientoEntradaDto {
 
@@ -42,8 +48,6 @@ public class MovimientoEntradaDto {
 	public void setTipoMovimiento(String tipoMovimiento) {
 		this.tipoMovimiento = tipoMovimiento;
 	}
-
-
 
 	public String getFecha() {
 		return fecha;
@@ -92,9 +96,5 @@ public class MovimientoEntradaDto {
 	public void setNumeroCuenta(int numeroCuenta) {
 		this.numeroCuenta = numeroCuenta;
 	}
-
-
-	
-	
 
 }

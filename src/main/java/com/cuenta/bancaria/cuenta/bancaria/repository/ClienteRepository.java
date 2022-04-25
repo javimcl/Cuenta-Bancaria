@@ -10,8 +10,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.cuenta.bancaria.cuenta.bancaria.model.Cliente;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Interfaz del repositorio del cliente. </b>
+ * 
+ * @author Javier Lucero
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: Javier Lucero $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 

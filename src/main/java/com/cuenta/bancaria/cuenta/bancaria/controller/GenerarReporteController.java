@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,10 +22,15 @@ import com.cuenta.bancaria.cuenta.bancaria.controller.dto.ReporteDto;
 import com.cuenta.bancaria.cuenta.bancaria.service.MovimientoService;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Clase controlador de para los reportes. </b>
+ * 
+ * @author jluceroc
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: jluceroc $, $Date: 24 abr. 2022 $]
+ *          </p>
  */
-
 @RestController
 @RequestMapping("/api")
 public class GenerarReporteController {
@@ -35,6 +39,18 @@ public class GenerarReporteController {
 	@Autowired
 	private MovimientoService service;
 
+	/**
+	 * 
+	 * <b> Metodo que genera el reporte por fechas, la fecha esta separada por
+	 * coma(,). </b>
+	 * <p>
+	 * [Author: jluceroc, Date: 24 abr. 2022]
+	 * </p>
+	 *
+	 * @param fecha
+	 *            fechas de entrada
+	 * @return ResponseEntity<?> lista o mensaje de error
+	 */
 	@GetMapping(value = "/reportes")
 	public ResponseEntity<?> reporte(@RequestParam String fecha) {
 

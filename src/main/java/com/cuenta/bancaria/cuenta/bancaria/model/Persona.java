@@ -5,8 +5,14 @@ import java.io.Serializable;
 import javax.persistence.MappedSuperclass;
 
 /**
- * The persistent class for the persona database table.
  * 
+ * <b> Clase persona que sera heradad por cliente. </b>
+ * 
+ * @author Javier Lucero
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: Javier Lucero $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 @MappedSuperclass
 public class Persona implements Serializable {

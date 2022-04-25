@@ -20,8 +20,14 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * The persistent class for the cuenta database table.
  * 
+ * <b> Clase entidad de la tabla cuenta. </b>
+ * 
+ * @author Javier Lucero
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: Javier Lucero $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 @DynamicUpdate
 @Entity
@@ -57,7 +63,6 @@ public class Cuenta implements Serializable {
 
 	@Column(name = "id_cliente")
 	private Long idCliente;
-
 
 	public Long getIdCuenta() {
 		return idCuenta;

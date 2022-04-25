@@ -35,8 +35,14 @@ import com.cuenta.bancaria.cuenta.bancaria.service.CuentaService;
 import com.cuenta.bancaria.cuenta.bancaria.service.MovimientoService;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Clase controlador para los movimientos contables. </b>
+ * 
+ * @author jluceroc
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: jluceroc $, $Date: 23 abr. 2022 $]
+ *          </p>
  */
 @RestController
 @RequestMapping("/api/movimientos")
@@ -55,6 +61,17 @@ public class MovimientoController {
 	@Autowired
 	private CuentaService cuentaService;
 
+	/**
+	 * 
+	 * <b> Metodo que crea los movimientos. </b>
+	 * <p>
+	 * [Author: Javier Lucero, Date: 25 abr. 2022]
+	 * </p>
+	 *
+	 * @param movimientoEntradaDto
+	 *            parametro de entrada
+	 * @return ResponseEntity<?> lista o mensaje de error
+	 */
 	@PostMapping
 	public ResponseEntity<?> create(@Validated @RequestBody MovimientoEntradaDto movimientoEntradaDto) {
 
@@ -93,7 +110,7 @@ public class MovimientoController {
 				}
 				saldo = cuenta.get().getSaldoInicial().subtract(BigDecimal.valueOf(movimientoEntradaDto.getValor()));
 				movimientoEntradaDto.setValor(-movimientoEntradaDto.getValor());
-				
+
 			} else {
 				return new ResponseEntity<>("Tipo de movimiento no encontrado", HttpStatus.BAD_REQUEST);
 			}
@@ -113,6 +130,17 @@ public class MovimientoController {
 		}
 	}
 
+	/**
+	 * 
+	 * <b> Metodo para obtiene los movimientos del cliente por su cuenta. </b>
+	 * <p>
+	 * [Author: Javier Lucero, Date: 25 abr. 2022]
+	 * </p>
+	 *
+	 * @param movimientoEntradaDto
+	 *            parametro de entrada
+	 * @return ResponseEntity<?> lista o mensaje de error
+	 */
 	@GetMapping
 	public ResponseEntity<?> obtenerPorClienteCuenta(
 			@Validated @RequestBody MovimientoEntradaDto movimientoEntradaDto) {
@@ -147,6 +175,17 @@ public class MovimientoController {
 		}
 	}
 
+	/**
+	 * 
+	 * <b> Metodo que actualiza el moviemto. </b>
+	 * <p>
+	 * [Author: Javier Lucero, Date: 25 abr. 2022]
+	 * </p>
+	 *
+	 * @param movimientoEntradaDto
+	 *            parametro de entrada
+	 * @return ResponseEntity<?> lista o mensaje de error
+	 */
 	@PutMapping
 	public ResponseEntity<?> update(@Validated @RequestBody MovimientoEntradaDto movimientoEntradaDto) {
 		try {
@@ -171,6 +210,17 @@ public class MovimientoController {
 		}
 	}
 
+	/**
+	 * 
+	 * <b> Metodo que elimina un registro por su id. </b>
+	 * <p>
+	 * [Author: Javier Lucero, Date: 25 abr. 2022]
+	 * </p>
+	 *
+	 * @param id
+	 *            parametro de entrada
+	 * @return ResponseEntity<?> lista o mensaje de error
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		try {

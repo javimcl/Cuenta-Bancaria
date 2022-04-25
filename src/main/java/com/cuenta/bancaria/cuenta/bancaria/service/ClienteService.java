@@ -9,8 +9,14 @@ import java.util.Optional;
 import com.cuenta.bancaria.cuenta.bancaria.model.Cliente;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Interfaz del servicio para el cliente. </b>
+ * 
+ * @author Javier Lucero
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: Javier Lucero $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 public interface ClienteService {
 	Cliente create(Cliente cliente);
@@ -27,7 +33,7 @@ public interface ClienteService {
 
 	Optional<Cliente> obtenerPorIdCliente(Long id);
 
-//	List<Cliente> obtenerPorIdPersona(Long id);
+	// List<Cliente> obtenerPorIdPersona(Long id);
 
 	Optional<Cliente> obtenerPorIdentificacion(String identificacion);
 

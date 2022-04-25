@@ -7,8 +7,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Clase para el iniciar los test. </b>
+ * 
+ * @author jluceroc
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: jluceroc $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 @SpringBootApplication
 public class TestServiceApplication {

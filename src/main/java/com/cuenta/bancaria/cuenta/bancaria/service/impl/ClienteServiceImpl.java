@@ -14,8 +14,14 @@ import com.cuenta.bancaria.cuenta.bancaria.repository.ClienteRepository;
 import com.cuenta.bancaria.cuenta.bancaria.service.ClienteService;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Servicio para el cliente. </b>
+ * 
+ * @author Javier Lucero
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: Javier Lucero $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 @Service
 public class ClienteServiceImpl implements ClienteService {
@@ -58,11 +64,6 @@ public class ClienteServiceImpl implements ClienteService {
 	public Optional<Cliente> obtenerPorIdCliente(Long id) {
 		return clienteRepository.findByClienteId(id);
 	}
-
-//	@Override
-//	public List<Cliente> obtenerPorIdPersona(Long id) {
-//		return clienteRepository.findByIdPersona(id);
-//	}
 
 	@Override
 	public Optional<Cliente> obtenerPorIdentificacion(String identificacion) {

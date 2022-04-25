@@ -4,8 +4,14 @@
 package com.cuenta.bancaria.cuenta.bancaria.enumeration;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Enumeracion de los estados. </b>
+ * 
+ * @author Javier Lucero
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: Javier Lucero $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 public enum EstadoEmun {
 
@@ -26,6 +32,5 @@ public enum EstadoEmun {
 	public String getDescripcion() {
 		return descripcion;
 	}
-	
 
 }

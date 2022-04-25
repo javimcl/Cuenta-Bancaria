@@ -24,22 +24,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Clase test para el cliente. </b>
+ * 
+ * @author jluceroc
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: jluceroc $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = TestServiceApplication.class)
 @TestMethodOrder(OrderAnnotation.class)
 public class TestRestTemplete {
-	
+
 	@Autowired
 	private TestRestTemplate restTemplate;
 
 	@Autowired
 	private ObjectMapper mapper;
-	
+
 	@Test
 	@Order(1)
-	public void post_createNewClient_Returns_201_Created() throws JsonProcessingException{
+	public void post_createNewClient_Returns_201_Created() throws JsonProcessingException {
 		Cliente cliente = new Cliente();
 		cliente.setClienteId(2L);
 		cliente.setNombre("Susana Gonzalez");
@@ -52,13 +58,13 @@ public class TestRestTemplete {
 		cliente.setEstado(Boolean.TRUE.toString());
 		HttpEntity<String> entity = getStringHttpEntity(cliente);
 		ResponseEntity<String> response = restTemplate.postForEntity("/api/clientes", entity, String.class);
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-				
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+
 	}
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private HttpEntity<String> getStringHttpEntity(Object object) throws JsonProcessingException{
-	
+	private HttpEntity<String> getStringHttpEntity(Object object) throws JsonProcessingException {
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		String jsonCliente = mapper.writeValueAsString(object);

@@ -14,8 +14,14 @@ import com.cuenta.bancaria.cuenta.bancaria.repository.CuentaRepository;
 import com.cuenta.bancaria.cuenta.bancaria.service.CuentaService;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Servicio para la Cuenta. </b>
+ * 
+ * @author Javier Lucero
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: Javier Lucero $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 @Service
 public class CuentaServiceImpl implements CuentaService {

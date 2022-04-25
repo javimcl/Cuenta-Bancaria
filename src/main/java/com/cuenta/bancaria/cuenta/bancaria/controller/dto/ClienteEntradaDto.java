@@ -4,8 +4,14 @@
 package com.cuenta.bancaria.cuenta.bancaria.controller.dto;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Clase DTO para la entrada de los datos del cliente. </b>
+ * 
+ * @author Javier Lucero
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: Javier Lucero $, $Date: 25 abr. 2022 $]
+ *          </p>
  */
 public class ClienteEntradaDto {
 
@@ -90,7 +96,5 @@ public class ClienteEntradaDto {
 	public void setIdCliente(Long idCliente) {
 		this.idCliente = idCliente;
 	}
-	
-	
 
 }

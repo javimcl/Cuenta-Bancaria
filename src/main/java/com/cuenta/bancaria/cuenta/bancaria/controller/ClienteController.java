@@ -26,8 +26,14 @@ import com.cuenta.bancaria.cuenta.bancaria.model.Cliente;
 import com.cuenta.bancaria.cuenta.bancaria.service.ClienteService;
 
 /**
- * @author JAVIM
- *
+ * 
+ * <b> Clase controlador de los clientes. </b>
+ * 
+ * @author Javier Lucero
+ * @version $Revision: 1.0 $
+ *          <p>
+ *          [$Author: Javier Lucero $, $Date: 23 abr. 2022 $]
+ *          </p>
  */
 @RestController
 @RequestMapping("/api/clientes")
@@ -37,9 +43,17 @@ public class ClienteController {
 	@Autowired
 	private ClienteService service;
 
-//	@Autowired
-//	private PersonaService personaService;
-
+	/**
+	 * 
+	 * <b> Metodo que crea un cliente. </b>
+	 * <p>
+	 * [Author: Javier Lucero, Date: 25 abr. 2022]
+	 * </p>
+	 *
+	 * @param clienteEntradaDto
+	 *            parametro de entrada
+	 * @return ResponseEntity<?> lista o mensaje de error
+	 */
 	@PostMapping
 	public ResponseEntity<?> create(@Validated @RequestBody ClienteEntradaDto clienteEntradaDto) {
 		try {
@@ -69,6 +83,17 @@ public class ClienteController {
 		}
 	}
 
+	/**
+	 * 
+	 * <b> Metodo para obtiene un cliente por su identidicacion. </b>
+	 * <p>
+	 * [Author: Javier Lucero, Date: 25 abr. 2022]
+	 * </p>
+	 *
+	 * @param clienteEntradaDto
+	 *            parametro de entrada
+	 * @return ResponseEntity<?> lista o mensaje de error
+	 */
 	@GetMapping
 	public ResponseEntity<?> obtenerCliente(@Validated @RequestBody ClienteEntradaDto clienteEntradaDto) {
 		try {
@@ -85,6 +110,17 @@ public class ClienteController {
 		}
 	}
 
+	/**
+	 * 
+	 * <b> Metodo que actualiza un cliente. </b>
+	 * <p>
+	 * [Author: Javier Lucero, Date: 25 abr. 2022]
+	 * </p>
+	 *
+	 * @param clienteEntradaDto
+	 *            parametro de entrada
+	 * @return ResponseEntity<?> lista o mensaje de error
+	 */
 	@PutMapping
 	public ResponseEntity<?> update(@Validated @RequestBody ClienteEntradaDto clienteEntradaDto) {
 		try {
@@ -117,6 +153,17 @@ public class ClienteController {
 		}
 	}
 
+	/**
+	 * 
+	 * <b> Metodo que elimina un registro por su id. </b>
+	 * <p>
+	 * [Author: Javier Lucero, Date: 25 abr. 2022]
+	 * </p>
+	 *
+	 * @param id
+	 *            parametro de entrada
+	 * @return ResponseEntity<?> lista o mensaje de error
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		try {
