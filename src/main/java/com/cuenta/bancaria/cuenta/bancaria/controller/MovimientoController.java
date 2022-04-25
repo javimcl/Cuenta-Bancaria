@@ -4,7 +4,6 @@
 package com.cuenta.bancaria.cuenta.bancaria.controller;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -96,10 +95,11 @@ public class MovimientoController {
 				return new ResponseEntity<>("Tipo de movimiento no encontrado", HttpStatus.BAD_REQUEST);
 			}
 
+			movimiento.setSaldoAnterior(cuenta.get().getSaldoInicial());
 			movimiento.setSaldo(saldo);
 			movimiento.setTipoMovimiento(movimientoEntradaDto.getTipoMovimiento());
 			movimiento.setFecha(new Date());
-			movimiento.setValor(movimientoEntradaDto.getValor());
+			movimiento.setValor(BigDecimal.valueOf(movimientoEntradaDto.getValor()));
 			Movimiento movimientoGuardado = service.create(movimiento);
 			cuenta.get().setSaldoInicial(saldo);
 			cuentaService.update(cuenta.get());
@@ -115,8 +115,23 @@ public class MovimientoController {
 			@Validated @RequestBody MovimientoEntradaDto movimientoEntradaDto) {
 		try {
 
-			List<Movimiento> listadoMovimiento = service.obtenerPorClienteCuenta(movimientoEntradaDto.getIdCliente(),
-					movimientoEntradaDto.getIdCuenta());
+			if (ObjectUtils.isEmpty(movimientoEntradaDto.getIdentificacion())
+					|| ObjectUtils.isEmpty(movimientoEntradaDto.getNumeroCuenta())) {
+				return new ResponseEntity<>("La identificación y el número de cuenta son obligatorios",
+						HttpStatus.BAD_REQUEST);
+			}
+			Optional<Cliente> cliente = clienteService
+					.obtenerPorIdentificacion(movimientoEntradaDto.getIdentificacion());
+			if (ObjectUtils.isEmpty(cliente)) {
+				return new ResponseEntity<>("El cliente no existe con la identificación", HttpStatus.BAD_REQUEST);
+			}
+			Optional<Cuenta> cuenta = cuentaService.obtenerPorNumeroCuenta(movimientoEntradaDto.getNumeroCuenta());
+			if (ObjectUtils.isEmpty(cuenta)) {
+				return new ResponseEntity<>("La cuenta no existe con el número de cuenta", HttpStatus.BAD_REQUEST);
+			}
+
+			List<Movimiento> listadoMovimiento = service.obtenerPorClienteCuenta(cliente.get().getClienteId(),
+					cuenta.get().getIdCuenta());
 			if (null == listadoMovimiento || listadoMovimiento.isEmpty()) {
 				return new ResponseEntity<>("No existen movimientos con lo parametros indicados.", HttpStatus.OK);
 			} else {
@@ -130,10 +145,18 @@ public class MovimientoController {
 	}
 
 	@PutMapping
-	public ResponseEntity<?> update(@Validated @RequestBody Movimiento movimiento) {
+	public ResponseEntity<?> update(@Validated @RequestBody MovimientoEntradaDto movimientoEntradaDto) {
 		try {
-			Optional<Movimiento> movimientoEncontrado = service.obtenerPorId(movimiento.getIdMovimiento());
+			if (ObjectUtils.isEmpty(movimientoEntradaDto.getIdMovimiento())) {
+				return new ResponseEntity<>("El id del movimiento es obligatorio", HttpStatus.BAD_REQUEST);
+			}
+			Optional<Movimiento> movimientoEncontrado = service.obtenerPorId(movimientoEntradaDto.getIdMovimiento());
 			if (movimientoEncontrado.isPresent()) {
+				Movimiento movimiento = movimientoEncontrado.get();
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+
+				Date date = formatter.parse(movimientoEntradaDto.getFecha());
+				movimiento.setFecha(date);
 				Movimiento movimientoGuardado = service.update(movimiento);
 				return new ResponseEntity<Movimiento>(movimientoGuardado, HttpStatus.OK);
 			}
@@ -148,10 +171,14 @@ public class MovimientoController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		try {
-			Optional<Movimiento> movimiento = service.obtenerPorId(id);
-			if (movimiento.isPresent()) {
+
+			if (ObjectUtils.isEmpty(id)) {
+				return new ResponseEntity<>("El id del movimiento es obligatorio", HttpStatus.BAD_REQUEST);
+			}
+			Optional<Movimiento> movimientoEncontrado = service.obtenerPorId(id);
+			if (movimientoEncontrado.isPresent()) {
 				service.delete(id);
-				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+				return new ResponseEntity<>("Registro Eliminado", HttpStatus.OK);
 			}
 			return new ResponseEntity<String>(
 					"No se puede eliminar el movimiento con id: " + id + " no existe el registro",

@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cuenta.bancaria.cuenta.bancaria.controller.dto.ReporteDto;
 import com.cuenta.bancaria.cuenta.bancaria.model.Movimiento;
 import com.cuenta.bancaria.cuenta.bancaria.repository.MovimientoRepository;
 import com.cuenta.bancaria.cuenta.bancaria.service.MovimientoService;
@@ -65,6 +66,11 @@ public class MovimientoServiceImpl implements MovimientoService {
 	@Override
 	public Double obtenerSumaValorClienteCuentaFecha(Long clienteId, Long idCuenta, String tipoMovimiento, Date fecha) {
 		return movimientoRepository.sumaValorPorClienteCuentaFecha(clienteId, idCuenta, tipoMovimiento, fecha);
+	}
+
+	@Override
+	public List<ReporteDto> obtenerPorFechas(Date fechaInicial, Date fechaFinal) {
+		return movimientoRepository.buscarPorEntreFechas(fechaInicial, fechaFinal);
 	}
 
 }

@@ -18,6 +18,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the movimiento database table.
  * 
@@ -40,11 +42,15 @@ public class Movimiento implements Serializable {
 	@Column(name = "tipo_movimiento")
 	private String tipoMovimiento;
 
-	private double valor;
+	private BigDecimal valor;
+	
+	@Column(name = "saldo_anterior")
+	private BigDecimal saldoAnterior;
 
 	// bi-directional many-to-one association to Cliente
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idCliente", insertable = false, updatable = false)
+	@JsonIgnore
 	private Cliente cliente;
 
 	@Column
@@ -53,6 +59,7 @@ public class Movimiento implements Serializable {
 	// bi-directional many-to-one association to Cuenta
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_cuenta", insertable = false, updatable = false)
+	@JsonIgnore
 	private Cuenta cuenta;
 
 	@Column(name = "id_cuenta")
@@ -90,11 +97,11 @@ public class Movimiento implements Serializable {
 		this.tipoMovimiento = tipoMovimiento;
 	}
 
-	public double getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 
-	public void setValor(double valor) {
+	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
 
@@ -129,5 +136,14 @@ public class Movimiento implements Serializable {
 	public void setIdCuenta(Long idCuenta) {
 		this.idCuenta = idCuenta;
 	}
+
+	public BigDecimal getSaldoAnterior() {
+		return saldoAnterior;
+	}
+
+	public void setSaldoAnterior(BigDecimal saldoAnterior) {
+		this.saldoAnterior = saldoAnterior;
+	}
+	
 
 }

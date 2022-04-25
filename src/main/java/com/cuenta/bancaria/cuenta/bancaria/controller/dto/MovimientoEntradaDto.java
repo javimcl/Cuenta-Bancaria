@@ -9,22 +9,22 @@ package com.cuenta.bancaria.cuenta.bancaria.controller.dto;
  */
 public class MovimientoEntradaDto {
 
-	private String id;
+	private Long idMovimiento;
 	private double saldo;
 	private String tipoMovimiento;
-	private String date;
+	private String fecha;
 	private Long idCliente;
 	private Long idCuenta;
 	private double valor;
 	private String identificacion;
 	private int numeroCuenta;
 
-	public String getId() {
-		return id;
+	public Long getIdMovimiento() {
+		return idMovimiento;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIdMovimiento(Long idMovimiento) {
+		this.idMovimiento = idMovimiento;
 	}
 
 	public double getSaldo() {
@@ -43,12 +43,14 @@ public class MovimientoEntradaDto {
 		this.tipoMovimiento = tipoMovimiento;
 	}
 
-	public String getDate() {
-		return date;
+
+
+	public String getFecha() {
+		return fecha;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
 	}
 
 	public Long getIdCliente() {
